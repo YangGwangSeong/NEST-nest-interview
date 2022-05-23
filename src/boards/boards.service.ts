@@ -9,7 +9,6 @@ export class BoardsService {
     getAllBoards(): Board[]{ //리턴값 타입지정
         return this.boards;
     }
-
     createBoard(createBoardDto: CreateBoardDto) {
         const { title, description } = createBoardDto;
         const board: Board = {
@@ -25,4 +24,8 @@ export class BoardsService {
     getBoardById(id: string): Board {
         return this.boards.find((board) => board.id === id);
     }
+    deleteBoard(id: string): void{
+        this.boards = this.boards.filter((board) => board.id !== id)
+    }
+    
 }
