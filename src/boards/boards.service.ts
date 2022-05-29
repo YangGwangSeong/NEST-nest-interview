@@ -4,12 +4,17 @@ import { v1 as uuid } from 'uuid';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class BoardsService {
+
+    //Inject Repository to Service
     constructor(
+        @InjectRepository(BoardRepository)
         private boardRepository: BoardRepository,
     ){}
+
 
     async getBoardById(id: number): Promise <Board> {
         const found = await this.boardRepository.findOne(id);
