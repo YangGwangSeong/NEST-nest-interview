@@ -28,6 +28,13 @@ export class BoardsService {
 
         return found;
     }
+    async deleteBoard(id:number): Promise<void> {
+        const result = await this.boardRepository.delete(id);
+        
+        if(result.affected ===0) {
+            throw new NotFoundException(`Cant't find Board with id ${id}`);
+        }
+    }
     // private boards: Board[] = []; //private 사용하는 이유는 클래스 내에서만 접근해서 수정 가능하게 하려고.
 
     // getAllBoards(): Board[]{ //리턴값 타입지정
