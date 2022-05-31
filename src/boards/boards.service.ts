@@ -19,6 +19,10 @@ export class BoardsService {
         return this.boardRepository.createBoard(createBoardDto);
     }
 
+    async getAllBoards(): Promise <Board[]> {
+        return this.boardRepository.find();
+    }
+
     async getBoardById(id: number): Promise <Board> {
         const found = await this.boardRepository.findOne(id);
 
@@ -45,6 +49,8 @@ export class BoardsService {
 
         return board;
     }
+    
+    
     // private boards: Board[] = []; //private 사용하는 이유는 클래스 내에서만 접근해서 수정 가능하게 하려고.
 
     // getAllBoards(): Board[]{ //리턴값 타입지정
