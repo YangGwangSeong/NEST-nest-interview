@@ -17,6 +17,8 @@ export class BoardsController {
     createBoard(@Body() CreateBoardDto: CreateBoardDto): Promise<Board>{
         return this.boardsService.createBoard(CreateBoardDto);
     }
+    
+    
 
     @Get()
     getAllBoard(): Promise<Board[]> {
