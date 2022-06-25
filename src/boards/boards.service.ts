@@ -27,7 +27,6 @@ export class BoardsService {
         query.where('board.userId = :userId', { userId: user.id})
         const boards = await query.getMany();
         return boards;
-        //return this.boardRepository.find();
     }
 
     async getAllBoardsFree(): Promise <Board[]>{
@@ -35,9 +34,12 @@ export class BoardsService {
         return this.boardRepository.find();
     }
 
-    async getBoardById(id: number): Promise <Board> {
-        const found = await this.boardRepository.findOne(id);
-
+    async getBoardById(
+        id: number,
+        user: User
+        ): Promise <Board> {
+        //const found = await this.boardRepository.findOne(id);
+        const found = await this.boardRepository.findOne({ where: { id:id, userId: user.id }});
         if(!found){
             throw new NotFoundException(`Can't find Board with id ${id}`);
         }
@@ -53,8 +55,11 @@ export class BoardsService {
         }
     }
 
-    async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
-        const board = await this.getBoardById(id);
+    async updateBoardStatus(
+        id: number,
+        status: BoardStatus,
+        user: User): Promise<Board> {
+        const board = await this.getBoardById(id,user);
 
         board.status = status;
         await this.boardRepository.save(board);
